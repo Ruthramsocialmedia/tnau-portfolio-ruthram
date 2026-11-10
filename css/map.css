@@ -1,0 +1,426 @@
+/* map.css - Map Page Styles (Glassmorphism UX) */
+
+.map-page {
+    position: relative;
+    height: calc(100vh - 70px);
+    width: 100%;
+    overflow: hidden;
+}
+
+/* -------------------------------------
+   1. FLOATING FILTER TOGGLE & SIDEBAR
+-------------------------------------- */
+.map-floating-search {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    pointer-events: none; /* Let clicks pass through except on children */
+}
+
+.map-back-link {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius-full);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neutral-700);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    pointer-events: auto;
+    transition: all var(--transition-fast);
+}
+
+.map-back-link:hover {
+    background: white;
+    color: var(--color-primary-600);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.search-bar-container {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.4);
+    transition: all 0.2s ease;
+    width: 320px;
+}
+
+.search-bar-container:focus-within {
+    background: white;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.search-icon {
+    color: var(--color-neutral-400);
+    margin-right: var(--space-2);
+}
+
+.map-search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: var(--space-2);
+    font-size: var(--text-base);
+    font-family: inherit;
+    outline: none;
+}
+
+.search-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-primary-600);
+    cursor: pointer;
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-lg);
+    transition: all 0.2s;
+    border-radius: var(--radius-md);
+}
+
+.icon-btn:hover { 
+    color: var(--color-primary-800); 
+    background: var(--color-primary-50);
+}
+
+.divider {
+    width: 1px;
+    height: 20px;
+    background: var(--color-neutral-200);
+}
+
+.filter-sidebar {
+    position: absolute;
+    top: calc(var(--space-4) + 60px); /* Just below search bar */
+    left: var(--space-4);
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    width: 380px;
+    max-width: calc(100vw - var(--space-8));
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-2xl);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+}
+
+.filter-sidebar.slide-hidden {
+    transform: translateY(-20px) translateX(0); /* Drop down animation instead of slide across */
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Horizontal Scrolling Pills */
+.pill-filters {
+    pointer-events: auto;
+    display: flex;
+    gap: var(--space-2);
+    overflow-x: auto;
+    padding-bottom: var(--space-1);
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.pill-filters::-webkit-scrollbar { display: none; }
+
+.pill-filter {
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-neutral-700);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.pill-filter:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+}
+
+.pill-filter.active {
+    background: var(--color-primary-600);
+    color: white;
+    border-color: var(--color-primary-600);
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3); /* Match primary-600 */
+}
+
+/* -------------------------------------
+   2. DETAIL SIDE PANEL (Or Bottom Sheet)
+-------------------------------------- */
+.detail-panel {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    max-height: calc(100vh - var(--space-8));
+    width: 380px;
+    max-width: calc(100vw - var(--space-8));
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-2xl);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+    opacity: 1;
+}
+
+.detail-panel.hidden {
+    transform: translateX(calc(-100% - 32px));
+    opacity: 0;
+    pointer-events: none;
+}
+
+.close-panel-btn {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    z-index: 10;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(4px);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    transition: background 0.2s;
+}
+.close-panel-btn:hover { background: white; }
+
+.detail-panel-cover {
+    height: 180px;
+    background-color: var(--color-neutral-200);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+.detail-panel-cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 50px;
+    background: linear-gradient(to top, rgba(255,255,255,0.95), transparent);
+}
+
+.detail-panel-content {
+    padding: var(--space-5);
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--color-primary-100);
+    color: var(--color-primary-800);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-2);
+    align-self: flex-start;
+}
+
+#detail-title {
+    font-family: 'Satoshi', sans-serif;
+    font-size: var(--text-xl);
+    line-height: 1.2;
+    margin-bottom: var(--space-1);
+}
+
+.detail-location {
+    color: var(--color-neutral-500);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+}
+
+.detail-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+}
+.stat-box {
+    background: rgba(255,255,255,0.5);
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    padding: var(--space-4);
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.2s;
+}
+.stat-box:hover {
+    background: rgba(255,255,255,0.8);
+    transform: translateY(-2px);
+}
+.stat-value {
+    font-weight: 800;
+    font-size: var(--text-xl);
+    color: var(--color-primary-700);
+}
+.stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+.detail-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.btn-full { width: 100%; justify-content: center; }
+
+/* -------------------------------------
+   3. MOBILE BOTTOM SHEET
+-------------------------------------- */
+@media (max-width: 768px) {
+    .map-floating-top {
+        width: calc(100vw - var(--space-8));
+    }
+    
+    .detail-panel {
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 75dvh;
+        max-height: 80dvh;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+    
+    .detail-panel.hidden {
+        transform: translateY(100%);
+        opacity: 1; /* Keep opacity 1 for bottom slide */
+    }
+
+    .leaflet-top.leaflet-left {
+        top: 75px;
+    }
+}
+
+/* -------------------------------------
+   4. CAMPUS MODE BUTTON
+-------------------------------------- */
+.btn-exit-campus {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 1002;
+    background: white;
+    color: var(--color-neutral-900);
+    border: none;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-exit-campus:hover {
+    transform: translateX(-4px);
+}
+.btn-exit-campus.hidden {
+    opacity: 0;
+    transform: translateX(-20px);
+    pointer-events: none;
+}
+
+/* -------------------------------------
+   5. TOGGLE SWITCHES
+-------------------------------------- */
+.toggle-switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggle-label {
+    font-size: var(--text-sm);
+    color: var(--color-neutral-700);
+    font-weight: 500;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.toggle-slider {
+    width: 36px;
+    height: 20px;
+    background-color: var(--color-neutral-300);
+    border-radius: var(--radius-full);
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.toggle-slider::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: var(--color-primary-600);
+}
+
+.toggle-switch input:checked + .toggle-slider::after {
+    transform: translateX(16px);
+}

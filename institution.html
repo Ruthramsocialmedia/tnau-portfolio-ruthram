@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institution Profile | Universities</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/institution.css">
+    
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav id="main-navbar"></nav>
+
+    <!-- Hero Banner -->
+    <section class="inst-hero">
+        <img id="heroCover" src="" alt="Campus Cover" class="inst-cover-img">
+        <div class="container inst-hero-content">
+            <div style="text-align: left;">
+                <a href="index.html" style="color: var(--color-white); opacity: 0.8; font-weight: 500; font-size: var(--text-sm); display: inline-flex; align-items: center; gap: var(--space-2); text-decoration: none; margin-top: var(--space-2); margin-bottom: var(--space-4); transition: opacity 0.2s; position: relative; z-index: 20;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+            <div id="heroBadges" class="inst-hero-badges"></div>
+            
+            <h1 id="heroName" class="inst-title">Loading...</h1>
+            <div id="heroLocation" class="inst-subtitle"></div>
+            <div id="heroCategory" style="font-size: var(--text-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary-300); margin-bottom: var(--space-6);"></div>
+            
+            <div class="inst-hero-actions">
+                <button id="btnLaunchTour" class="btn btn-primary btn-lg" style="background-color: var(--color-warm-500); color: white;">
+                    <i class="fa-solid fa-vr-cardboard"></i> Launch Virtual Tour
+                </button>
+                <a id="btnLaunchModelTour" href="../Model Tour/index.htm" target="_blank" class="btn btn-primary btn-lg" style="display:none; background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: white; text-decoration: none;">
+                    <i class="fa-solid fa-cube"></i> 3D Digital Twin Walkthrough
+                </a>
+                <button id="btnParentView" class="btn btn-outline-white">
+                    <i class="fa-solid fa-shield-halved"></i> Parent View
+                </button>
+                <button id="btnShortlist" class="btn btn-outline-white btn-shortlist-action">
+                    <i class="fa-regular fa-bookmark shortlist-icon"></i> <span class="shortlist-text">Shortlist</span>
+                </button>
+                <button id="btnCompare" class="btn btn-outline-white">
+                    <i class="fa-solid fa-code-compare"></i> Compare
+                </button>
+                <button id="btnDownloadPdf" class="btn btn-outline-white">
+                    <i class="fa-solid fa-file-pdf"></i> Download Report
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="inst-tabs">
+        <div class="container tab-list">
+            <button class="tab-btn active" data-tab="overview">Overview</button>
+            <button class="tab-btn" data-tab="courses">Courses</button>
+            <button class="tab-btn" data-tab="facilities">Facilities</button>
+            <button class="tab-btn" data-tab="safety">Safety & Security</button>
+            <button class="tab-btn" data-tab="accreditation">Accreditation</button>
+            <button class="tab-btn" data-tab="achievements">Achievements</button>
+            <button class="tab-btn" data-tab="events">Events</button>
+            <button class="tab-btn" data-tab="nearby">Nearby</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="inst-main">
+        <div class="container inst-layout">
+            
+            <!-- Left: Tab Panels -->
+            <div class="inst-content">
+                
+                <!-- OVERVIEW -->
+                <div id="tab-overview" class="tab-panel active">
+                    <div class="panel-card">
+                        <h3>About the Institution</h3>
+                        <p id="overviewDesc" style="color: var(--color-neutral-600); line-height: 1.6;"></p>
+                        
+                        <div id="overviewStats" class="quick-stats-grid">
+                            <!-- Injected by JS -->
+                        </div>
+                        
+                        <div class="transparency-meter" style="margin-top: var(--space-6); padding: var(--space-4); background: var(--color-neutral-50); border-radius: var(--radius-md); border: 1px solid var(--color-neutral-200);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2);">
+                                <h4 style="margin: 0; font-size: var(--text-base);"><i class="fa-solid fa-shield-halved" style="color: var(--color-accent-600);"></i> Transparency Score</h4>
+                                <span id="transparencyScoreVal" style="font-weight: 700; color: var(--color-primary-700); font-size: var(--text-lg);">--%</span>
+                            </div>
+                            <div style="width: 100%; height: 8px; background: var(--color-neutral-200); border-radius: 4px; overflow: hidden; margin-bottom: var(--space-4);">
+                                <div id="transparencyScoreBar" style="height: 100%; width: 0%; background: var(--color-accent-500); transition: width 1s ease-in-out;"></div>
+                            </div>
+                            <ul id="transparencyBreakdown" style="font-size: var(--text-sm); color: var(--color-neutral-600); list-style-type: disc; padding-left: var(--space-4);">
+                                <!-- Injected by JS -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COURSES -->
+                <div id="tab-courses" class="tab-panel">
+                    <div class="panel-card">
+                        <h3>Programs Offered</h3>
+                        <div id="coursesList">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FACILITIES -->
+                <div id="tab-facilities" class="tab-panel">
+                    <div class="panel-card">
+                        <h3>Campus Facilities</h3>
+                        <div id="facilitiesList" class="feature-list" style="margin-top: var(--space-4);">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SAFETY -->
+                <div id="tab-safety" class="tab-panel">
+                    <div class="panel-card">
+                        <h3>Safety & Security Features</h3>
+                        <div id="safetyList" class="feature-list" style="margin-top: var(--space-4);">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACCREDITATION -->
+                <div id="tab-accreditation" class="tab-panel">
+                    <div class="panel-card">
+                        <h3>Accreditation & Approvals</h3>
+                        <div id="accreditationList" class="feature-list" style="margin-top: var(--space-4);">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACHIEVEMENTS -->
+                <div id="tab-achievements" class="tab-panel">
+                    <div class="panel-card">
+                        <h3>Milestones & Achievements</h3>
+                        <div id="achievementsList" class="feature-list" style="margin-top: var(--space-4);">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EVENTS -->
+                <div id="tab-events" class="tab-panel">
+                    <div class="panel-card">
+                        <h3>Upcoming Campus Events</h3>
+                        <div id="eventsList" class="feature-list" style="margin-top: var(--space-4);">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEARBY -->
+                <div id="tab-nearby" class="tab-panel">
+                    <div class="panel-card" style="margin-bottom: var(--space-6);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                            <h3 style="margin-bottom: 0; border: none;">Location & Accessibility</h3>
+                        </div>
+                        <p style="color: var(--color-neutral-600); margin-bottom: var(--space-4); font-size: var(--text-sm);">Smart Nearby Information helps you explore the surrounding infrastructure of the campus.</p>
+                        
+                        <div style="display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-6);">
+                            <button id="btnNearbyTransit" class="btn btn-outline btn-sm">
+                                <i class="fa-solid fa-train"></i> Transit
+                            </button>
+                            <button id="btnNearbyHospital" class="btn btn-outline btn-sm">
+                                <i class="fa-solid fa-hospital"></i> Hospitals
+                            </button>
+                            <button id="btnNearbyHostel" class="btn btn-outline btn-sm">
+                                <i class="fa-solid fa-hotel"></i> Hostels/PGs
+                            </button>
+                            <button id="btnNearbyAirport" class="btn btn-outline btn-sm">
+                                <i class="fa-solid fa-plane"></i> Airports
+                            </button>
+                        </div>
+                        <div id="nearbyList" class="feature-list" style="margin-bottom: var(--space-6);">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="panel-card" style="background: linear-gradient(135deg, var(--color-primary-50), var(--color-white));">
+                        <h3><i class="fa-solid fa-cloud-sun" style="color: var(--color-primary-600);"></i> Local Weather Guide</h3>
+                        <p style="color: var(--color-neutral-600); font-size: var(--text-sm); margin-bottom: var(--space-4);">Average climate conditions for students planning their stay.</p>
+                        <div id="weatherWidget" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); text-align: center;">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right: Sidebar -->
+            <aside class="inst-sidebar">
+                <div id="instSidebar">
+                    <!-- Enquiry Form injected by JS -->
+                </div>
+                
+                <div class="sidebar-widget" style="margin-top: var(--space-6);">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-4);">Quick Actions</h3>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+                        <button id="btnApplyNow" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: var(--text-lg); padding: var(--space-3);">
+                            <i class="fa-solid fa-paper-plane"></i> Apply Now
+                        </button>
+                        <button id="btnBookCounselling" class="btn btn-outline" style="width: 100%; justify-content: center; color: var(--color-primary-600); border-color: var(--color-primary-600);">
+                            <i class="fa-solid fa-calendar-check"></i> Book Counselling
+                        </button>
+                        <button id="btnShareParents" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                            <i class="fa-solid fa-share-nodes"></i> Share with Parents
+                        </button>
+                        <button id="btnWhatsapp" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                        </button>
+                        <button id="btnDownloadPdf" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                            <i class="fa-solid fa-download"></i> Download Report
+                        </button>
+                        <button id="btnDownloadBrochure" class="btn btn-outline" style="width: 100%; justify-content: center; color: var(--color-primary-600); border-color: var(--color-primary-600);">
+                            <i class="fa-solid fa-file-pdf"></i> Download Brochure
+                        </button>
+                        <button id="btnCertificate" class="btn btn-primary" style="width: 100%; justify-content: center; background-color: var(--color-warm-600); border-color: var(--color-warm-600);">
+                            <i class="fa-solid fa-award"></i> Virtual Visit Certificate
+                        </button>
+                        <button class="btn btn-outline btn-shortlist-action" style="width: 100%; justify-content: center;">
+                            <i class="fa-regular fa-bookmark shortlist-icon"></i> <span class="shortlist-text">Shortlist</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- AI Explainer Modal -->
+    <div id="aiModal" class="modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background: white; border-radius: var(--radius-lg); width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: var(--space-6); position: relative;">
+            <button id="aiModalClose" style="position: absolute; top: var(--space-4); right: var(--space-4); background: none; border: none; font-size: var(--text-xl); cursor: pointer; color: var(--color-neutral-500);"><i class="fa-solid fa-xmark"></i></button>
+            <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
+                <i class="fa-solid fa-sparkles" style="color: var(--color-primary-500); font-size: var(--text-2xl);"></i>
+                <h2 style="font-size: var(--text-xl); color: var(--color-primary-900);">AI Course Explainer</h2>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-neutral-200); margin-bottom: var(--space-4); padding-bottom: var(--space-2);">
+                <h3 id="aiCourseTitle" style="font-size: var(--text-lg); margin: 0; border: none; padding: 0;">Loading...</h3>
+                <button class="btn btn-outline btn-sm notranslate" onclick="window.playSectionAudio('aiModalContent', this)">
+                    <i class="fa-solid fa-volume-high"></i> Listen
+                </button>
+            </div>
+            
+            <div id="aiModalContent" style="color: var(--color-neutral-700); line-height: 1.6;">
+                <div style="text-align: center; padding: var(--space-8);">
+                    <i class="fa-solid fa-spinner fa-spin fa-2xl" style="color: var(--color-primary-500);"></i>
+                    <p style="margin-top: var(--space-4);">Analyzing course curriculum & career outcomes...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Counselling Booking Modal -->
+    <div id="counsellingModal" class="modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content" style="background: white; border-radius: var(--radius-lg); width: 90%; max-width: 450px; padding: var(--space-6); position: relative;">
+            <button id="counsellingModalClose" style="position: absolute; top: var(--space-4); right: var(--space-4); background: none; border: none; font-size: var(--text-xl); cursor: pointer; color: var(--color-neutral-500);"><i class="fa-solid fa-xmark"></i></button>
+            <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
+                <i class="fa-solid fa-calendar-check" style="color: var(--color-primary-500); font-size: var(--text-2xl);"></i>
+                <h2 style="font-size: var(--text-xl); color: var(--color-primary-900);">Book Counselling</h2>
+            </div>
+            <p style="color: var(--color-neutral-600); margin-bottom: var(--space-4); font-size: var(--text-sm);">Schedule a free 1-on-1 virtual session with an expert admission counsellor to clear your doubts.</p>
+            <form id="counsellingForm" style="display: flex; flex-direction: column; gap: var(--space-3);">
+                <div class="form-group">
+                    <label class="form-label">Preferred Date</label>
+                    <input type="date" class="form-input" required id="counsellingDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Preferred Time Slot</label>
+                    <select class="form-select" required id="counsellingTime">
+                        <option value="">Select a time...</option>
+                        <option value="morning">Morning (10:00 AM - 12:00 PM)</option>
+                        <option value="afternoon">Afternoon (1:00 PM - 4:00 PM)</option>
+                        <option value="evening">Evening (4:00 PM - 7:00 PM)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number for Callback</label>
+                    <input type="tel" id="counsellingPhone" class="form-input" required pattern="[0-9]{10}" placeholder="10-digit mobile number">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: var(--space-2);">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer id="main-footer"></footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="data/tn-uni-data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/pages/auth.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/tts-reader.js"></script>
+    <script src="js/components/footer.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/enquiry-form.js"></script>
+    <script src="js/components/certificate.js"></script>
+    <script src="js/ai-explainer.js"></script>
+    <script src="js/components/institution-card.js"></script>
+    <script src="js/components/pdf-generator.js"></script>
+    <script src="js/weather-api.js"></script>
+    <script src="js/nearby-api.js"></script>
+    <script src="js/pages/institution.js"></script>
+</body>
+</html>

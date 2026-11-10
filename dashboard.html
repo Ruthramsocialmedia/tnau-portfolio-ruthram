@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | Universities</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav id="main-navbar"></nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="dashboard-page">
+        <div class="dashboard-hero">
+            <div class="container">
+                <div class="dashboard-header" style="display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-6);">
+                    <div>
+                        <h1 style="font-size: var(--text-4xl); margin-bottom: var(--space-2); color: var(--color-white); letter-spacing: -0.02em;">My Dashboard</h1>
+                        <p style="color: rgba(255,255,255,0.7); font-size: var(--text-lg);">Manage your college shortlists, enquiries, and profile.</p>
+                    </div>
+                    
+                    <!-- Stat Cards -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: var(--space-4); width: 100%;">
+                        <div onclick="if(window.switchDashboardTab) window.switchDashboardTab('shortlist');" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); padding: var(--space-4); border-radius: var(--radius-lg); color: white; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                            <div style="font-size: var(--text-sm); opacity: 0.8; margin-bottom: var(--space-1);"><i class="fa-solid fa-heart" style="color: #ff4757;"></i> Saved Colleges</div>
+                            <div id="statSaved" style="font-size: var(--text-3xl); font-weight: 700;">0</div>
+                        </div>
+                        <div onclick="if(window.switchDashboardTab) window.switchDashboardTab('enquiries');" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); padding: var(--space-4); border-radius: var(--radius-lg); color: white; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                            <div style="font-size: var(--text-sm); opacity: 0.8; margin-bottom: var(--space-1);"><i class="fa-solid fa-envelope" style="color: #1e90ff;"></i> Active Enquiries</div>
+                            <div id="statEnquiries" style="font-size: var(--text-3xl); font-weight: 700;">0</div>
+                        </div>
+                        <div onclick="document.getElementById('recommendedGrid').scrollIntoView({behavior: 'smooth', block: 'center'});" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); padding: var(--space-4); border-radius: var(--radius-lg); color: white; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                            <div style="font-size: var(--text-sm); opacity: 0.8; margin-bottom: var(--space-1);"><i class="fa-solid fa-robot" style="color: #2ed573;"></i> AI Matches</div>
+                            <div id="statMatches" style="font-size: var(--text-3xl); font-weight: 700;">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container dashboard-content-wrapper">
+            <div class="dashboard-tabs">
+                <button class="dashboard-tab active" data-target="shortlist">My Shortlist</button>
+                <button class="dashboard-tab" data-target="enquiries">My Enquiries</button>
+                <button class="dashboard-tab" data-target="profile">My Profile</button>
+            </div>
+
+            <!-- Shortlist View -->
+            <div id="shortlistView" class="tab-content" style="display: block;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                    <h2 style="font-size: var(--text-xl); color: var(--color-primary-900);">My Top Choices</h2>
+                    <button id="btnShareShortlist" class="btn btn-outline" style="display: none;"><i class="fa-solid fa-share-nodes"></i> Share with Parents</button>
+                </div>
+                <div id="shortlistGrid" class="results-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--space-6);">
+                    <!-- Loading State -->
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+                        <p>Loading your saved colleges...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enquiries View -->
+            <div id="enquiriesView" class="tab-content" style="display: none;">
+                <div class="empty-dashboard">
+                    <i class="fa-regular fa-envelope" style="font-size: var(--text-4xl); color: var(--color-neutral-300); margin-bottom: var(--space-4);"></i>
+                    <h3>No Active Enquiries</h3>
+                    <p style="color: var(--color-neutral-600); margin-top: var(--space-2);">When you submit an enquiry to a college, it will appear here.</p>
+                </div>
+            </div>
+
+            <!-- Profile View -->
+            <div id="profileView" class="tab-content" style="display: none;">
+                <div style="background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); border: 1px solid var(--color-neutral-200);">
+                    <div style="display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-neutral-100);">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--color-primary-100); color: var(--color-primary-600); display: flex; align-items: center; justify-content: center; font-size: var(--text-3xl); font-weight: 700;">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <h2 id="profileName" style="font-size: var(--text-2xl); color: var(--color-neutral-900);">Student Profile</h2>
+                            <p id="profileEmail" style="color: var(--color-neutral-500);">student@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-4); color: var(--color-primary-900);">Academic Preferences</h3>
+                    <form id="profileForm" style="display: flex; flex-direction: column; gap: var(--space-4); max-width: 500px;">
+                        <div class="form-group">
+                            <label class="form-label">Preferred Course of Study</label>
+                            <select class="form-select" id="prefCourse">
+                                <option value="">Select a field...</option>
+                                <option value="Engineering">Engineering / B.Tech</option>
+                                <option value="Arts">Arts & Science</option>
+                                <option value="Medical">Medical</option>
+                                <option value="Law">Law</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Desired Location</label>
+                            <select class="form-select" id="prefLocation">
+                                <option value="">Anywhere</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Coimbatore">Coimbatore</option>
+                                <option value="Madurai">Madurai</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Annual Budget Range</label>
+                            <select class="form-select" id="prefBudget">
+                                <option value="">Select budget...</option>
+                                <option value="low">Under ₹1 Lakh/year</option>
+                                <option value="medium">₹1 Lakh - ₹3 Lakhs/year</option>
+                                <option value="high">Above ₹3 Lakhs/year</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: var(--space-2); align-self: flex-start;">Save Preferences</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommended Section -->
+        <div style="background: var(--color-neutral-50); padding: var(--space-8) 0; margin-top: var(--space-8); border-top: 1px solid var(--color-neutral-200);">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                    <h2 style="font-size: var(--text-xl); color: var(--color-primary-900);"><i class="fa-solid fa-fire" style="color: #ff7f50;"></i> Recommended for You</h2>
+                </div>
+                <div id="recommendedGrid" class="results-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--space-6);">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer"></footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="data/tn-uni-data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/user-actions.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/footer.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/institution-card.js"></script>
+    <script src="js/pages/auth.js"></script>
+    <script src="js/pages/dashboard.js"></script>
+</body>
+</html>

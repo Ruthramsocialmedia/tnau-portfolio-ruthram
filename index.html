@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNAU Agri Portal | Tamil Nadu Agricultural University</title>
+    <meta name="description" content="Explore Tamil Nadu Agricultural University's 99 campuses, research stations, and KVK centers with 360° virtual tours, crop mandates, and agro-climatic intelligence.">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- Navbar Placeholder -->
+    <nav id="main-navbar"></nav>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <!-- Cinematic Background Video -->
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="college-img/tamilnadu agricultural university.png" aria-hidden="true" tabindex="-1">
+                <source src="assets/videos/hero-campus.mp4" type="video/mp4">
+            </video>
+            <div class="hero-video-overlay" aria-hidden="true"></div>
+            <div class="hero-grain" aria-hidden="true"></div>
+
+            <!-- Aurora Ambient Blobs -->
+            <div class="hero-blob hero-blob-a" aria-hidden="true"></div>
+            <div class="hero-blob hero-blob-b" aria-hidden="true"></div>
+            <div class="hero-blob hero-blob-c" aria-hidden="true"></div>
+
+            <!-- Floating Glass Chips with Conic Prism Borders -->
+            <div class="hero-chip hero-chip-heritage" aria-hidden="true">
+                <i class="fa-solid fa-landmark"></i>
+                <span><strong>Est. 1906</strong>120 Yrs Heritage</span>
+            </div>
+            <div class="hero-chip hero-chip-constituent" aria-hidden="true">
+                <i class="fa-solid fa-building-columns"></i>
+                <span><strong>18 Colleges</strong>Constituent (Govt)</span>
+            </div>
+            <div class="hero-chip hero-chip-stations" aria-hidden="true">
+                <i class="fa-solid fa-flask-vial"></i>
+                <span><strong>38 Stations</strong>Crop Research</span>
+            </div>
+            <div class="hero-chip hero-chip-kvk" aria-hidden="true">
+                <i class="fa-solid fa-wheat-awn"></i>
+                <span><strong>15 Centers</strong>Krishi Vigyan Kendras</span>
+            </div>
+
+            <div class="container hero-inner">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-seedling"></i>
+                    <span>Premier Agricultural University of Tamil Nadu • ICAR Accredited</span>
+                </div>
+
+                <h1>Tamil Nadu Agricultural University</h1>
+                <p>Explore 18 Constituent Campuses, 28 Affiliated Colleges, 38 Specialized Research Stations, and 15 KVK Centers Across Tamil Nadu.</p>
+                
+                <div class="glass-panel">
+                    <div class="search-command-bar">
+                        <div class="search-leading-icon" aria-hidden="true">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="search-command-input" 
+                            placeholder="Search 99 campuses, degree programs, crops, districts..." 
+                            id="searchInput" 
+                            aria-label="Search TNAU network"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                        <div class="search-trailing-actions">
+                            <button type="button" id="aiCollegeFinderBtn" class="btn-ai-spark" title="Launch AI Agri Recommender">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                <span>AI Advisor</span>
+                            </button>
+                            <button type="button" id="searchBtn" class="btn-search-submit" title="Search Portal">
+                                <span>Search</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="quick-filters">
+                        <button class="quick-chip" data-category="">All 99 Units</button>
+                        <button class="quick-chip" data-category="Constituent Colleges"><i class="fa-solid fa-building-columns"></i> Constituent (18)</button>
+                        <button class="quick-chip" data-category="Affiliated Colleges"><i class="fa-solid fa-graduation-cap"></i> Affiliated (28)</button>
+                        <button class="quick-chip" data-category="Research Stations"><i class="fa-solid fa-flask-vial"></i> Research Stations (38)</button>
+                        <button class="quick-chip" data-category="Krishi Vigyan Kendras (KVKs)"><i class="fa-solid fa-wheat-awn"></i> KVKs (15)</button>
+                    </div>
+
+                    <!-- Quick Intent Pathways -->
+                    <div class="intent-pathways" style="margin-top: var(--space-3); display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                        <span style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px;">Explore Pathways:</span>
+                        <a href="search.html?degree=B.Sc.+(Hons)+Agriculture" class="intent-pill"><i class="fa-solid fa-graduation-cap"></i> B.Sc. (Hons) Agri</a>
+                        <a href="search.html?q=paddy" class="intent-pill"><i class="fa-solid fa-seedling"></i> Paddy & Rice Varieties</a>
+                        <a href="search.html?category=Krishi+Vigyan+Kendras+(KVKs)" class="intent-pill"><i class="fa-solid fa-wheat-awn"></i> Farmer KVK Hubs</a>
+                        <a href="https://tnau-ruthram.netlify.app/" target="_blank" class="intent-pill"><i class="fa-solid fa-vr-cardboard"></i> 360° Coimbatore Tour</a>
+                    </div>
+                </div>
+
+                <!-- Live Statewide Agro-Met Status Ticker -->
+                <div class="agromet-ticker">
+                    <i class="fa-solid fa-cloud-sun"></i>
+                    <span id="tickerWeather">TNAU Agromet Hub: <strong>Coimbatore 28°C</strong> • <strong>Madurai 31°C</strong> • <strong>TRRI Aduthurai 29°C</strong> • All 7 Agro-Climatic Zones</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar (4-Grid) -->
+        <div class="stats-bar">
+            <div class="container stats-grid">
+                <div class="stat-item">
+                    <div class="stat-num" id="stat-constituent">18</div>
+                    <div class="stat-label">Constituent Colleges</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num" id="stat-affiliated">28</div>
+                    <div class="stat-label">Affiliated Colleges</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num" id="stat-stations">38</div>
+                    <div class="stat-label">Research Stations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num" id="stat-kvk">15</div>
+                    <div class="stat-label">Krishi Vigyan Kendras</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header" style="justify-content: center; text-align: center;">
+                    <div>
+                        <h2 class="section-title">How It Works</h2>
+                        <p class="section-subtitle">Your journey to the right campus starts here</p>
+                    </div>
+                </div>
+                
+                <div class="step-grid">
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <h3 class="step-title">1. Search & Filter</h3>
+                        <p style="color: var(--color-neutral-600);">Find institutions based on your preferred courses, location, and required facilities.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fa-solid fa-vr-cardboard"></i>
+                        </div>
+                        <h3 class="step-title">2. Take a Virtual Tour</h3>
+                        <p style="color: var(--color-neutral-600);">Walk through labs, hostels, and libraries with our AI guide before visiting physically.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <h3 class="step-title">3. Compare & Connect</h3>
+                        <p style="color: var(--color-neutral-600);">Compare key metrics and directly send enquiries to your shortlisted colleges.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Institutions -->
+        <section class="section" style="background-color: var(--color-neutral-100);">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Featured Campuses</h2>
+                        <p class="section-subtitle">Take a virtual walk through top institutions</p>
+                    </div>
+                    <a href="search.html" class="btn" style="color: var(--color-primary-600)">View all <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="grid-cards" id="featured-grid">
+                    <!-- Cards injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse by Category -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Browse by Category</h2>
+                        <p class="section-subtitle">Find the right institution type for your future</p>
+                    </div>
+                </div>
+                
+                <div class="bento-grid">
+                    <div class="category-card bento-span-2-col bento-dark" tabindex="0" data-category="Constituent Colleges">
+                        <i class="fa-solid fa-building-columns category-icon"></i>
+                        <div class="category-name">Constituent Colleges</div>
+                        <p style="font-size: var(--text-xs); opacity: 0.85; margin-top: 4px;">18 Premier Government & University Campuses</p>
+                    </div>
+                    <div class="category-card bento-span-2-row" tabindex="0" data-category="Affiliated Colleges">
+                        <i class="fa-solid fa-graduation-cap category-icon"></i>
+                        <div class="category-name">Affiliated Colleges</div>
+                        <p style="font-size: var(--text-xs); opacity: 0.85; margin-top: 4px;">28 State-Approved Private Agricultural Colleges</p>
+                    </div>
+                    <div class="category-card" tabindex="0" data-category="Krishi Vigyan Kendras (KVKs)">
+                        <i class="fa-solid fa-seedling category-icon"></i>
+                        <div class="category-name">Krishi Vigyan Kendras (KVKs)</div>
+                        <p style="font-size: var(--text-xs); opacity: 0.85; margin-top: 4px;">15 Farmer Science & Training Centers</p>
+                    </div>
+                    <div class="category-card bento-span-2-col" tabindex="0" data-category="Research Stations">
+                        <i class="fa-solid fa-flask-vial category-icon"></i>
+                        <div class="category-name">Research Stations</div>
+                        <p style="font-size: var(--text-xs); opacity: 0.85; margin-top: 4px;">38 Specialized Crop & Regional Research Stations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse by District -->
+        <section class="section" style="background-color: var(--color-white); border-top: 1px solid var(--color-neutral-200);">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Popular Districts</h2>
+                        <p class="section-subtitle">Explore educational hubs across the state</p>
+                    </div>
+                </div>
+                
+                <div class="district-grid" id="district-grid">
+                    <!-- Chips injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialized Pathways (Split CTA) -->
+        <section class="split-cta-container container">
+            <div class="split-cta-grid">
+                <!-- Parents Card -->
+                <div class="cta-card cta-card-parents">
+                    <h2>For Parents & Guardians</h2>
+                    <p>Safety is paramount. Switch to 'Parent View' on any institution profile to prioritize CCTV coverage, warden details, transport safety, and medical facilities.</p>
+                    <a href="search.html" class="btn btn-accent btn-lg">Explore Safest Campuses</a>
+                </div>
+                <!-- NRI Card -->
+                <div class="cta-card cta-card-nri">
+                    <h2>Exploring from Abroad?</h2>
+                    <p>Access timezone-friendly support, WhatsApp callbacks, fee guidance, and airport pickup details exclusively for NRI families.</p>
+                    <a href="nri.html" class="btn btn-primary btn-lg" style="background-color: var(--color-warm-500);">View NRI Guide</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AI Recommender Modal -->
+    <style>
+        dialog#recommender-modal::backdrop {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+        }
+        .radio-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 1px solid var(--color-neutral-300);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            background: var(--color-white);
+        }
+        .radio-card:hover { border-color: var(--color-primary-400); }
+        .radio-card:has(input:checked) {
+            border-color: var(--color-primary-600);
+            background: var(--color-primary-50);
+            color: var(--color-primary-700);
+        }
+        .radio-card input { display: none; }
+    </style>
+    <dialog id="recommender-modal" style="margin: auto; padding: var(--space-6); border: none; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); max-width: 500px; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+            <h3 style="margin: 0;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--color-accent-600);"></i> AI Finder</h3>
+            <button onclick="document.getElementById('recommender-modal').close()" style="background: none; border: none; font-size: var(--text-xl); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="ai-tabs" style="display: flex; gap: var(--space-2); margin-bottom: var(--space-4); background: var(--color-neutral-100); padding: 4px; border-radius: var(--radius-md);">
+            <button id="tab-btn-guided" class="ai-tab" onclick="switchAITab('guided')" style="flex: 1; padding: 8px; border: none; border-radius: var(--radius-sm); background: var(--color-white); box-shadow: var(--shadow-sm); cursor: pointer; font-weight: 500;">Guided Wizard</button>
+            <button id="tab-btn-smart" class="ai-tab" onclick="switchAITab('smart')" style="flex: 1; padding: 8px; border: none; border-radius: var(--radius-sm); background: transparent; cursor: pointer; font-weight: 500; color: var(--color-neutral-600);">Smart Text</button>
+        </div>
+        
+        <!-- Tab 1: Guided Wizard -->
+        <form id="ai-recommender-guided" class="ai-tab-content">
+            <!-- Step 1: Academics -->
+            <div class="rec-step active" id="rec-step-1">
+                <p style="font-weight: 500; margin-bottom: 12px; color: var(--color-primary-800);"><i class="fa-solid fa-graduation-cap"></i> 1. Academics & Career</p>
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Preferred Course / Field</label>
+                <input type="text" name="course" placeholder="e.g. B.Tech Computer Science, MBBS, Law..." class="form-control" style="margin-bottom: 15px;" required>
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Career Goal</label>
+                <select name="careerGoal" class="form-control" style="margin-bottom: 15px;">
+                    <option value="Placements & Job">Placements & Job</option>
+                    <option value="Research & Ph.D">Research & Ph.D</option>
+                    <option value="Higher Studies (Abroad)">Higher Studies (Abroad)</option>
+                    <option value="Entrepreneurship">Entrepreneurship</option>
+                    <option value="Not sure">Not sure yet</option>
+                </select>
+                
+                <button type="button" class="btn btn-primary" onclick="nextStep(2)" style="width: 100%;">Next: Profile <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            
+            <!-- Step 2: Profile -->
+            <div class="rec-step" id="rec-step-2" style="display: none;">
+                <p style="font-weight: 500; margin-bottom: 12px; color: var(--color-primary-800);"><i class="fa-solid fa-user"></i> 2. Student Profile</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <label class="radio-card"><input type="radio" name="studentType" value="Indian" checked><span>Indian Student</span></label>
+                    <label class="radio-card"><input type="radio" name="studentType" value="NRI"><span>NRI / Foreign</span></label>
+                </div>
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Language Comfort</label>
+                <input type="text" name="language" placeholder="e.g. English, Tamil, Hindi" class="form-control" style="margin-bottom: 15px;" value="English">
+
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Entrance Exam Score (Optional)</label>
+                <input type="text" name="examScore" placeholder="e.g. NEET 600, JEE 95%ile" class="form-control" style="margin-bottom: 15px;">
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn" onclick="nextStep(1)">Back</button>
+                    <button type="button" class="btn btn-primary" style="flex: 1;" onclick="nextStep(3)">Next: Location <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 3: Location & Stay -->
+            <div class="rec-step" id="rec-step-3" style="display: none;">
+                <p style="font-weight: 500; margin-bottom: 12px; color: var(--color-primary-800);"><i class="fa-solid fa-map-location-dot"></i> 3. Location & Stay</p>
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Preferred State / Region</label>
+                <input type="text" name="state" placeholder="e.g. Tamil Nadu, Chennai, Any" class="form-control" style="margin-bottom: 15px;" value="Tamil Nadu">
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Distance Preference</label>
+                <select name="distance" class="form-control" style="margin-bottom: 15px;">
+                    <option value="Anywhere">Anywhere</option>
+                    <option value="Within my state">Within my state</option>
+                    <option value="Local city only">Local city only</option>
+                </select>
+
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Hostel Needed?</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <label class="radio-card"><input type="radio" name="hostel" value="Yes" checked><span>Yes, Hostel</span></label>
+                    <label class="radio-card"><input type="radio" name="hostel" value="No"><span>No (Day Scholar)</span></label>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn" onclick="nextStep(2)">Back</button>
+                    <button type="button" class="btn btn-primary" style="flex: 1;" onclick="nextStep(4)">Next: Budget <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 4: Affordability -->
+            <div class="rec-step" id="rec-step-4" style="display: none;">
+                <p style="font-weight: 500; margin-bottom: 12px; color: var(--color-primary-800);"><i class="fa-solid fa-wallet"></i> 4. Affordability & Type</p>
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Institution Type</label>
+                <select name="type" class="form-control" style="margin-bottom: 15px;">
+                    <option value="Any">Any Type</option>
+                    <option value="Government / State">Government / State</option>
+                    <option value="Private / Deemed">Private / Deemed</option>
+                </select>
+
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Budget Range (Per Year)</label>
+                <select name="budget" class="form-control" style="margin-bottom: 15px;">
+                    <option value="Any">No specific limit</option>
+                    <option value="< 1 Lakh">Less than 1 Lakh</option>
+                    <option value="1-3 Lakhs">1 to 3 Lakhs</option>
+                    <option value="3-5 Lakhs">3 to 5 Lakhs</option>
+                    <option value="> 5 Lakhs">Above 5 Lakhs</option>
+                </select>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn" onclick="nextStep(3)">Back</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Matches</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Tab 2: Smart Prompt -->
+        <form id="ai-recommender-smart" class="ai-tab-content" style="display: none;">
+            <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                <p style="color: var(--color-neutral-600); margin: 0; font-size: var(--text-sm);">Tell us what you're looking for in your own words. We'll extract your requirements and find the perfect match.</p>
+                <textarea name="prompt" id="ai-prompt" rows="4" placeholder="e.g. 'I want an engineering college in Chennai with a hostel and NAAC A grade'" style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-neutral-300); border-radius: var(--radius-md); font-family: inherit; resize: vertical;" required></textarea>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fa-solid fa-wand-magic-sparkles"></i> Analyze & Find</button>
+            </div>
+        </form>
+        
+        <div id="rec-results" style="display: none; margin-top: 20px; border-top: 1px solid var(--color-neutral-200); padding-top: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4 style="margin: 0;">Your Top Matches:</h4>
+                <button onclick="resetRecommender()" class="btn btn-text" style="padding: 0; font-size: 13px;">Start Over</button>
+            </div>
+            <div id="rec-list" style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;"></div>
+        </div>
+    </dialog>
+
+    <!-- Footer Placeholder -->
+    <footer id="main-footer"></footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="data/tn-uni-data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/user-actions.js"></script>
+    <script src="js/pages/auth.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/footer.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/institution-card.js"></script>
+    <script src="js/weather-api.js"></script>
+    <script src="js/pages/home.js"></script>
+    <script src="js/ai-recommender.js"></script>
+</body>
+</html>

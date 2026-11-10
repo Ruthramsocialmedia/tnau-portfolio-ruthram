@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Universities | Universities</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/compare.css">
+    <style>
+        .compare-hero {
+            background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
+            color: var(--color-white);
+            padding: var(--space-16) 0 var(--space-12);
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .empty-state {
+            text-align: center;
+            padding: var(--space-16) var(--space-4);
+            background-color: var(--color-white);
+            border-radius: var(--radius-xl);
+            border: none;
+            box-shadow: var(--shadow-md);
+            margin: var(--space-8) 0;
+        }
+    </style>
+</head>
+<body>
+    <nav id="main-navbar"></nav>
+
+    <div class="compare-hero">
+        <div class="container">
+            <div style="text-align: left;">
+                <a href="index.html" style="color: var(--color-white); opacity: 0.8; font-weight: 500; font-size: var(--text-sm); display: inline-flex; align-items: center; gap: var(--space-2); text-decoration: none; margin-top: var(--space-2); margin-bottom: var(--space-6); transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+            <h1 style="font-size: var(--text-4xl); margin-bottom: var(--space-4); color: #ffffff;">Compare Institutions</h1>
+            <p style="color: var(--color-primary-200); font-size: var(--text-lg); max-width: 600px; margin: 0 auto;">Select up to 3 institutions to compare facilities, courses, and safety features side-by-side.</p>
+        </div>
+    </div>
+
+    <main class="container compare-page" style="padding: var(--space-8) 0;">
+        <div class="compare-header">
+            <h2 class="compare-title" style="color: #ffffff;">Compare up to 3 Institutions</h2>
+            <div class="compare-selector">
+                <div class="custom-select-wrapper" id="customSelectWrapper">
+                    <div class="custom-select-trigger" id="customSelectTrigger">
+                        <span id="customSelectLabel">-- Choose an Institution --</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="custom-select-options" id="customSelectOptions">
+                        <!-- Options injected by JS -->
+                    </div>
+                    <select class="compare-select hidden" id="compSelect" aria-label="Select institution to compare" style="display:none;">
+                        <option value="">-- Choose an Institution --</option>
+                        <!-- Options injected by JS -->
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="compAddBtn">Add to Compare</button>
+            </div>
+        </div>
+
+        <div id="compareTableContainer">
+            <!-- Table injected by JS -->
+        </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="data/tn-uni-data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/pages/auth.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/footer.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/pages/compare.js"></script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Institutions | TNAU Agri Portal</title>
+    <meta name="description" content="Search and filter 99 TNAU institutions including Constituent Colleges, Affiliated Colleges, Research Stations, and Krishi Vigyan Kendras across Tamil Nadu.">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/search.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav id="main-navbar"></nav>
+
+    <main id="main-content" class="search-page">
+        <!-- Elevated Search Header -->
+        <div class="search-header-hero">
+            <div class="container">
+                <div style="text-align: left; margin-bottom: var(--space-6);">
+                    <a href="index.html" style="color: var(--color-primary-200); font-weight: 500; font-size: var(--text-sm); display: inline-flex; align-items: center; gap: var(--space-2); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--color-white)'" onmouseout="this.style.color='var(--color-primary-200)'">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+                <!-- Glassmorphic Search Box -->
+                <div class="search-page-box glass-panel-search" style="margin-bottom: 0;">
+                    <div class="search-command-bar">
+                        <div class="search-leading-icon" aria-hidden="true">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="search-command-input" 
+                            placeholder="Search by college, research station, zone, crop, or degree..." 
+                            id="pageSearchInput" 
+                            aria-label="Search institutions"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                        <div class="search-trailing-actions">
+                            <button type="button" id="pageAiFinderBtn" class="btn-ai-spark" title="AI Advisor Search">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                <span>AI Advisor</span>
+                            </button>
+                            <button type="button" id="pageSearchBtn" class="btn-search-submit" title="Search Institutions">
+                                <span>Search</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="search-layout">
+                <!-- Sidebar -->
+                <div id="filter-sidebar-container"></div>
+
+                <!-- Results Area -->
+                <div class="results-area">
+                    <!-- Persona Quick-Tabs Bar -->
+                    <div class="persona-tabs-bar" id="personaTabsBar">
+                        <button class="persona-tab active" data-category="all">
+                            <i class="fa-solid fa-shapes"></i> All Network <span class="tab-count">99</span>
+                        </button>
+                        <button class="persona-tab" data-category="Constituent Colleges">
+                            <i class="fa-solid fa-building-columns"></i> Constituent <span class="tab-count">18</span>
+                        </button>
+                        <button class="persona-tab" data-category="Affiliated Colleges">
+                            <i class="fa-solid fa-graduation-cap"></i> Affiliated <span class="tab-count">28</span>
+                        </button>
+                        <button class="persona-tab" data-category="Research Stations">
+                            <i class="fa-solid fa-flask-vial"></i> Stations <span class="tab-count">38</span>
+                        </button>
+                        <button class="persona-tab" data-category="Krishi Vigyan Kendras (KVKs)">
+                            <i class="fa-solid fa-wheat-awn"></i> KVKs <span class="tab-count">15</span>
+                        </button>
+                    </div>
+
+                    <!-- Active Filter Chips Bar -->
+                    <div class="active-filters-bar" id="activeFiltersBar" style="display: none;">
+                        <span style="font-size: 12px; font-weight: 700; color: var(--color-neutral-500); margin-right: 4px;">Active:</span>
+                        <div id="activeChipsList" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
+                        <button class="filter-clear-all-btn" id="clearAllFiltersBtn">Clear All</button>
+                    </div>
+
+                    <div class="results-header">
+                        <div class="results-count" id="results-count">Searching...</div>
+                        <div class="results-actions">
+                            <!-- View Switcher -->
+                            <div class="view-switcher" id="viewSwitcher">
+                                <button class="view-btn active" id="viewGridBtn" title="Grid View" aria-label="Grid View">
+                                    <i class="fa-solid fa-grip"></i>
+                                </button>
+                                <button class="view-btn" id="viewListBtn" title="List View" aria-label="List View">
+                                    <i class="fa-solid fa-list-ul"></i>
+                                </button>
+                            </div>
+                            <button class="mobile-filter-btn" id="mobileFilterBtn">
+                                <i class="fa-solid fa-filter"></i> Filters
+                            </button>
+                            <div class="custom-sort-wrapper" id="customSortWrapper">
+                                <div class="custom-sort-trigger" id="customSortTrigger">
+                                    <span id="customSortLabel">Sort: Relevance</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="custom-sort-options" id="customSortOptions">
+                                    <div class="custom-sort-option selected" data-value="relevance">Sort: Relevance</div>
+                                    <div class="custom-sort-option" data-value="name-asc">Name: A to Z</div>
+                                    <div class="custom-sort-option" data-value="name-desc">Name: Z to A</div>
+                                </div>
+                                <select class="sort-select hidden" id="sortSelect" aria-label="Sort results" style="display:none;">
+                                    <option value="relevance">Sort: Relevance</option>
+                                    <option value="name-asc">Name: A to Z</option>
+                                    <option value="name-desc">Name: Z to A</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Finder Output -->
+                    <div id="aiFinderContainer" class="ai-recommender-card" style="display: none;">
+                        <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); position: relative; z-index: 2;">
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--color-accent-600); font-size: var(--text-2xl);"></i>
+                            <h3 style="color: var(--color-primary-900); font-size: var(--text-xl); font-weight: 700;">AI College Finder Analysis</h3>
+                        </div>
+                        <div id="aiFinderContent" style="color: var(--color-neutral-800); font-size: var(--text-base); line-height: 1.6; position: relative; z-index: 2;">
+                            <i class="fa-solid fa-spinner fa-spin"></i> Analyzing your query and finding the best matches...
+                        </div>
+                    </div>
+
+                    <!-- Results Grid -->
+                    <div class="results-grid" id="results-grid">
+                        <!-- Cards injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Recommender Modal -->
+    <style>
+        dialog#recommender-modal::backdrop {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+        }
+        .radio-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 1px solid var(--color-neutral-300);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            background: var(--color-white);
+        }
+        .radio-card:hover { border-color: var(--color-primary-400); }
+        .radio-card:has(input:checked) {
+            border-color: var(--color-primary-600);
+            background: var(--color-primary-50);
+            color: var(--color-primary-700);
+        }
+        .radio-card input { display: none; }
+    </style>
+    <dialog id="recommender-modal" style="margin: auto; padding: var(--space-6); border: none; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); max-width: 500px; width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+            <h3 style="margin: 0;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--color-accent-600);"></i> AI Finder</h3>
+            <button onclick="document.getElementById('recommender-modal').close()" style="background: none; border: none; font-size: var(--text-xl); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="ai-tabs" style="display: flex; gap: var(--space-2); margin-bottom: var(--space-4); background: var(--color-neutral-100); padding: 4px; border-radius: var(--radius-md);">
+            <button id="tab-btn-guided" class="ai-tab" onclick="switchAITab('guided')" style="flex: 1; padding: 8px; border: none; border-radius: var(--radius-sm); background: var(--color-white); box-shadow: var(--shadow-sm); cursor: pointer; font-weight: 500;">Guided Wizard</button>
+            <button id="tab-btn-smart" class="ai-tab" onclick="switchAITab('smart')" style="flex: 1; padding: 8px; border: none; border-radius: var(--radius-sm); background: transparent; cursor: pointer; font-weight: 500; color: var(--color-neutral-600);">Smart Text</button>
+        </div>
+        
+        <!-- Tab 1: Guided Wizard -->
+        <form id="ai-recommender-guided" class="ai-tab-content">
+            <!-- Step 1: Academics -->
+            <div class="rec-step active" id="rec-step-1">
+                <p style="font-weight: 500; margin-bottom: 12px; color: var(--color-primary-800);"><i class="fa-solid fa-graduation-cap"></i> 1. Academics & Career</p>
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Preferred Course / Field</label>
+                <input type="text" name="course" placeholder="e.g. B.Tech Computer Science, MBBS, Law..." class="form-control" style="margin-bottom: 15px;" required>
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Career Goal</label>
+                <select name="careerGoal" class="form-control" style="margin-bottom: 15px;">
+                    <option value="Placements & Job">Placements & Job</option>
+                    <option value="Research & Ph.D">Research & Ph.D</option>
+                    <option value="Higher Studies (Abroad)">Higher Studies (Abroad)</option>
+                    <option value="Entrepreneurship">Entrepreneurship</option>
+                    <option value="Not sure">Not sure yet</option>
+                </select>
+                
+                <button type="button" class="btn btn-primary" onclick="nextStep(2)" style="width: 100%;">Next: Profile <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            
+            <!-- Step 2: Profile -->
+            <div class="rec-step" id="rec-step-2" style="display: none;">
+                <p style="font-weight: 500; margin-bottom: 12px; color: var(--color-primary-800);"><i class="fa-solid fa-user"></i> 2. Student Profile</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <label class="radio-card"><input type="radio" name="studentType" value="Indian" checked><span>Indian Student</span></label>
+                    <label class="radio-card"><input type="radio" name="studentType" value="NRI"><span>NRI / Foreign</span></label>
+                </div>
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Language Comfort</label>
+                <input type="text" name="language" placeholder="e.g. English, Tamil, Hindi" class="form-control" style="margin-bottom: 15px;" value="English">
+
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Entrance Exam Score (Optional)</label>
+                <input type="text" name="examScore" placeholder="e.g. NEET 600, JEE 95%ile" class="form-control" style="margin-bottom: 15px;">
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn" onclick="nextStep(1)">Back</button>
+                    <button type="button" class="btn btn-primary" style="flex: 1;" onclick="nextStep(3)">Next: Location <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 3: Location & Stay -->
+            <div class="rec-step" id="rec-step-3" style="display: none;">
+                <p style="font-weight: 500; margin-bottom: 12px; color: var(--color-primary-800);"><i class="fa-solid fa-map-location-dot"></i> 3. Location & Stay</p>
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Preferred State / Region</label>
+                <input type="text" name="state" placeholder="e.g. Tamil Nadu, Chennai, Any" class="form-control" style="margin-bottom: 15px;" value="Tamil Nadu">
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Distance Preference</label>
+                <select name="distance" class="form-control" style="margin-bottom: 15px;">
+                    <option value="Anywhere">Anywhere</option>
+                    <option value="Within my state">Within my state</option>
+                    <option value="Local city only">Local city only</option>
+                </select>
+
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Hostel Needed?</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <label class="radio-card"><input type="radio" name="hostel" value="Yes" checked><span>Yes, Hostel</span></label>
+                    <label class="radio-card"><input type="radio" name="hostel" value="No"><span>No (Day Scholar)</span></label>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn" onclick="nextStep(2)">Back</button>
+                    <button type="button" class="btn btn-primary" style="flex: 1;" onclick="nextStep(4)">Next: Budget <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Step 4: Affordability -->
+            <div class="rec-step" id="rec-step-4" style="display: none;">
+                <p style="font-weight: 500; margin-bottom: 12px; color: var(--color-primary-800);"><i class="fa-solid fa-wallet"></i> 4. Affordability & Type</p>
+                
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Institution Type</label>
+                <select name="type" class="form-control" style="margin-bottom: 15px;">
+                    <option value="Any">Any Type</option>
+                    <option value="Government / State">Government / State</option>
+                    <option value="Private / Deemed">Private / Deemed</option>
+                </select>
+
+                <label style="display:block; margin-bottom: 8px; font-size: 13px;">Budget Range (Per Year)</label>
+                <select name="budget" class="form-control" style="margin-bottom: 15px;">
+                    <option value="Any">No specific limit</option>
+                    <option value="< 1 Lakh">Less than 1 Lakh</option>
+                    <option value="1-3 Lakhs">1 to 3 Lakhs</option>
+                    <option value="3-5 Lakhs">3 to 5 Lakhs</option>
+                    <option value="> 5 Lakhs">Above 5 Lakhs</option>
+                </select>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn" onclick="nextStep(3)">Back</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Matches</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Tab 2: Smart Prompt -->
+        <form id="ai-recommender-smart" class="ai-tab-content" style="display: none;">
+            <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                <p style="color: var(--color-neutral-600); margin: 0; font-size: var(--text-sm);">Tell us what you're looking for in your own words. We'll extract your requirements and find the perfect match.</p>
+                <textarea name="prompt" id="ai-prompt" rows="4" placeholder="e.g. 'I want an engineering college in Chennai with a hostel and NAAC A grade'" style="width: 100%; padding: var(--space-3); border: 1px solid var(--color-neutral-300); border-radius: var(--radius-md); font-family: inherit; resize: vertical;" required></textarea>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fa-solid fa-wand-magic-sparkles"></i> Analyze & Find</button>
+            </div>
+        </form>
+        
+        <div id="rec-results" style="display: none; margin-top: 20px; border-top: 1px solid var(--color-neutral-200); padding-top: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4 style="margin: 0;">Your Top Matches:</h4>
+                <button onclick="resetRecommender()" class="btn btn-text" style="padding: 0; font-size: 13px;">Start Over</button>
+            </div>
+            <div id="rec-list" style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;"></div>
+        </div>
+    </dialog>
+    <!-- Footer -->
+    <footer id="main-footer"></footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="data/tn-uni-data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/user-actions.js"></script>
+    <script src="js/pages/auth.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/footer.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/institution-card.js"></script>
+    <script src="js/components/filter-sidebar.js"></script>
+    <script src="js/pages/search.js"></script>
+    <script src="js/ai-recommender.js"></script>
+</body>
+</html>

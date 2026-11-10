@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRI Parents Guide | Universities</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+        .nri-hero {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+            color: var(--color-white);
+            padding: var(--space-16) 0 var(--space-24) 0;
+            text-align: center;
+        }
+        
+        .nri-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin: -80px auto var(--space-12) auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .nri-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-xl);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all var(--transition-normal);
+        }
+
+        .nri-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .nri-card i {
+            font-size: var(--text-3xl);
+            color: var(--color-warm-500);
+            margin-bottom: var(--space-4);
+        }
+
+        .nri-card h3 {
+            font-size: var(--text-lg);
+            color: var(--color-primary-900);
+            margin-bottom: var(--space-2);
+        }
+        
+        .nri-card p {
+            color: var(--color-neutral-600);
+            font-size: var(--text-sm);
+        }
+
+        .uni-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+    <nav id="main-navbar"></nav>
+
+    <div class="nri-hero">
+        <div class="container">
+            <div style="text-align: left;">
+                <a href="index.html" style="color: var(--color-white); opacity: 0.8; font-weight: 500; font-size: var(--text-sm); display: inline-flex; align-items: center; gap: var(--space-2); text-decoration: none; margin-top: var(--space-2); margin-bottom: var(--space-8); transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+            <h1 style="font-size: var(--text-5xl); margin-bottom: var(--space-4); letter-spacing: -0.02em; color: #ffffff;">NRI Families Hub</h1>
+            <p style="color: rgba(255,255,255,0.8); font-size: var(--text-lg); max-width: 600px; margin: 0 auto;">Dedicated support, timezone-friendly communication, and verified admission guidance for international applicants.</p>
+        </div>
+    </div>
+
+    <main class="container" style="padding-bottom: var(--space-16);" id="main-content">
+        
+        <!-- NRI Services Grid -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6);">
+            <h2 style="font-size: var(--text-2xl); color: var(--color-primary-900);">Admission Guidance</h2>
+            <button class="btn btn-outline btn-sm notranslate" onclick="window.playSectionAudio('nriServices', this)">
+                <i class="fa-solid fa-volume-high"></i> Listen
+            </button>
+        </div>
+        <div class="nri-services" id="nriServices">
+            <div class="nri-card">
+                <i class="fa-brands fa-whatsapp"></i>
+                <h3>Direct WhatsApp Connect</h3>
+                <p>Chat directly with admission officers bypassing standard email queues.</p>
+            </div>
+            <div class="nri-card">
+                <i class="fa-solid fa-passport"></i>
+                <h3>Visa & Logistics Support</h3>
+                <p>Find universities offering dedicated International Student Offices.</p>
+            </div>
+            <div class="nri-card">
+                <i class="fa-solid fa-bed"></i>
+                <h3>Premium Hostels</h3>
+                <p>Discover campuses with AC hostels, international cuisine, and high security.</p>
+            </div>
+        </div>
+
+        <!-- Featured Top Universities -->
+        <div style="margin-top: var(--space-12);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-6); border-bottom: 2px solid var(--color-neutral-200); padding-bottom: var(--space-4);">
+                <div>
+                    <h2 style="font-size: var(--text-2xl); color: var(--color-primary-900);">Top Rated for International Students</h2>
+                    <p style="color: var(--color-neutral-600);">Institutions with dedicated NRI quotas and international facilities.</p>
+                </div>
+            </div>
+            
+            <div id="nriGrid" class="uni-grid">
+                <!-- Injected via nri.js -->
+                <div style="grid-column: 1 / -1; text-align: center; padding: var(--space-12);">
+                    <i class="fa-solid fa-spinner fa-spin fa-2xl" style="color: var(--color-warm-500);"></i>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer id="main-footer"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="data/tn-uni-data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/pages/auth.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/tts-reader.js"></script>
+    <script src="js/components/footer.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/institution-card.js"></script>
+    <script src="js/pages/nri.js"></script>
+</body>
+</html>

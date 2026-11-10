@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Universities</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- Navbar -->
+    <nav id="main-navbar"></nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="auth-page">
+            <div class="auth-card" id="loginCard">
+                <div class="auth-header">
+                    <h1>Welcome Back</h1>
+                    <p>Log in to access your shortlisted institutions</p>
+                </div>
+                
+                <div id="authError" class="auth-error"></div>
+
+                <form id="authForm" class="auth-form">
+                    <div class="form-group" id="nameGroup" style="display: none;">
+                        <label class="form-label" for="nameInput">Full Name</label>
+                        <input type="text" id="nameInput" class="form-input" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="emailInput">Email Address</label>
+                        <input type="email" id="emailInput" class="form-input" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="passwordInput">Password</label>
+                        <input type="password" id="passwordInput" class="form-input" required placeholder="••••••••">
+                    </div>
+                    
+                    <button type="submit" id="authSubmitBtn" class="btn btn-primary auth-btn">
+                        Log In
+                    </button>
+                </form>
+
+                <div class="auth-toggle">
+                    <span id="toggleText">Don't have an account?</span> 
+                    <a id="toggleAuthBtn">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer"></footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/footer.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/pages/auth.js"></script>
+</body>
+</html>
